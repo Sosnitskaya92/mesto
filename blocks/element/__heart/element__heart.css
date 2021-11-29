@@ -1,4 +1,7 @@
 .element__heart {
+  background-image: url(../../../images/Vector__heart.svg);
+  border: none;
+  background-color: #fff;
   width: 22px;
   height: 19px;
   transition: opacity 0.2s linear;
