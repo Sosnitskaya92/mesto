@@ -1,9 +1,9 @@
 .popup__close {
- position: absolute;
- top: -40px;
- right: -40px;
- cursor: pointer;
- transition: opacity 0.2s linear;
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  cursor: pointer;
+  transition: opacity 0.2s linear;
 }
 
 .popup__close:hover {
