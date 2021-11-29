@@ -4,3 +4,14 @@
   line-height: 48px;
   margin: 0 18px 16px 0;
 }
+
+@media screen and (max-width: 500px) {
+  .profile__title {
+    font-weight: 500;
+    font-size: 27px;
+    line-height: 33px;
+    margin: 0;
+    margin-right: 10px;
+    margin-bottom: 14px;
+  }
+}

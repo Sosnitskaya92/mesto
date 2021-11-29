@@ -6,3 +6,12 @@
     margin: 0;
     padding: 66px 0 60px;
 }
+
+@media screen and (max-width: 500px) {
+    .footer__autor {
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 17px;
+      padding: 48px 19px 36px;
+    }
+  }
