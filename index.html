@@ -19,7 +19,7 @@
                 <div class="profile__info">
                     <div class="profile__name">
                       <h1 class="profile__title">Жак-Ив Кусто</h1>
-                      <button class="profile__edit-btn" type="button"></button>
+                      <button class="profile__edit-btn js-profile__edit-btn" type="button"></button>
                     </div>
                     <p class="profile__text">Исследователь океана</p>
                 </div>
@@ -31,49 +31,61 @@
                     <img class="element__image" src="images/image__karahasevsk.jpg" alt="Изображение">
                     <div class="element__group">
                         <h2 class="element__title">Карачаевск</h2>
-                        <img class="element__heart element__heart_active" src="images/Vector__heart.svg" alt="Сердце">
+                        <img class="element__heart" src="images/Vector__heart.svg" alt="Сердце">
                     </div>
                 </div>
                 <div class="element">
                     <img class="element__image" src="images/image__elbrus.jpg" alt="Изображение">
                     <div class="element__group">
                         <h2 class="element__title">Гора Эльбрус</h2>
-                        <img class="element__heart element__heart_active" src="images/Vector__heart.svg" alt="Сердце">
+                        <img class="element__heart" src="images/Vector__heart.svg" alt="Сердце">
                     </div>
                 </div>
                 <div class="element">
                     <img class="element__image" src="images/image__dombay.jpg" alt="Изображение">
                     <div class="element__group">
                         <h2 class="element__title">Домбай</h2>
-                        <img class="element__heart element__heart_active" src="images/Vector__heart.svg" alt="Сердце">
+                        <img class="element__heart" src="images/Vector__heart.svg" alt="Сердце">
                     </div>
                 </div>
                 <div class="element">
                     <img class="element__image" src="images/image__elbrus.jpg" alt="Изображение">
                     <div class="element__group">
                         <h2 class="element__title">Гора Эльбрус</h2>
-                        <img class="element__heart element__heart_active" src="images/Vector__heart.svg" alt="Сердце">
+                        <img class="element__heart" src="images/Vector__heart.svg" alt="Сердце">
                     </div>
                 </div>
                 <div class="element">
                     <img class="element__image" src="images/image__dombay.jpg" alt="Изображение">
                     <div class="element__group">
                         <h2 class="element__title">Домбай</h2>
-                        <img class="element__heart element__heart_active" src="images/Vector__heart.svg" alt="Сердце">
+                        <img class="element__heart" src="images/Vector__heart.svg" alt="Сердце">
                     </div>
                 </div>
                 <div class="element">
                     <img class="element__image" src="images/image__karahasevsk.jpg" alt="Изображение">
                     <div class="element__group">
-                        <h2 class="element__title">Карачаево-Ч...</h2>
-                        <img class="element__heart element__heart_active" src="images/Vector__heart.svg" alt="Сердце">
+                        <h2 class="element__title">Карачаево-Черкессия</h2>
+                        <img class="element__heart" src="images/Vector__heart.svg" alt="Сердце">
                     </div>
+                </div>
+            </section>
+            <section class="popup">
+                <div class="popup__container">
+                   <h3 class="popup__editor">Редактировать профиль</h3>
+                   <form class="popup__form">
+                     <input class="popup__name" type="text" placeholder="Имя" value="">
+                     <input class="popup__info" type="text" placeholder="О себе" value="">
+                     <input class="popup__save" type="submit" value="Сохранить">
+                   </form>
+                   <img class="popup__close" src="images/Close Icon.svg" alt="Закрыть">
                 </div>
             </section>
         </main>
         <footer class="footer">
             <p class="footer__autor">&copy; 2020 Mesto Russia</p>
         </footer>
-    </div>    
+    </div>
+    <script src='script.js'></script>
 </body>
 </html>
