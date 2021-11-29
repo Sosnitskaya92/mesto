@@ -17,3 +17,5 @@
 * Dom-интерфейс
 
 Файловая структура CSS создана по методологии БЭМ.
+
+* [Ссылка на проект](https://sosnitskaya92.github.io/mesto/index.html)
