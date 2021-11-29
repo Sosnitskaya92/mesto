@@ -1,4 +1,4 @@
-.profile__edit-btn {
+.profile__edit {
   width: 24px;
   height: 24px;
   border: 1px solid #FFFFFF;
@@ -11,12 +11,12 @@
   transition: opacity 0.2s linear;
 }
 
-.profile__edit-btn:hover {
+.profile__edit:hover {
   opacity: 0.6;
 }
 
 @media screen and (max-width: 500px) {
-  .profile__edit-btn {
+  .profile__edit {
     width: 18px;
     height: 18px;
   }
