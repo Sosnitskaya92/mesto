@@ -1,23 +1,24 @@
 .profile__add {
   width: 150px;
   height: 50px;
-  border: 2px solid #FFFFFF;
+  border: 2px solid #FFF;
   box-sizing: border-box;
   border-radius: 2px;
-  background-color: #000000;
+  background-color: #000;
   background-image: url(../../../images/Vector__add-btn.svg);
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
-  transition: opacity 0.2s linear;
+  transition: opacity .2s linear;
 }
 
 .profile__add:hover {
-  opacity: 0.6;
+  opacity: .6;
 }
 
 @media screen and (max-width: 650px) {
   .profile__add {
    width: 282px;
+   background-image: url(../../../images/Vector__add-btn2.png);
     }
 }
