@@ -5,7 +5,7 @@
   box-sizing: border-box;
   border-radius: 2px;
   background-color: #000;
-  background-image: url(../../../images/Vector__add-btn.svg);
+  background-image: url(../../../images/image__add-btn.svg);
   background-repeat: no-repeat;
   background-position: center;
   cursor: pointer;
@@ -19,6 +19,6 @@
 @media screen and (max-width: 650px) {
   .profile__add {
    width: 282px;
-   background-image: url(../../../images/Vector__add-btn2.png);
+   background-image: url(../../../images/image__add-btn2.png);
     }
 }
