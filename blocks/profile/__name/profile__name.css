@@ -3,8 +3,9 @@
   align-items: baseline;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
   .profile__name {
     margin: 0 38px 0 65px;
+    max-width: 282px;
   }
 }

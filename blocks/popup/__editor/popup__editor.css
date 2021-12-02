@@ -3,4 +3,13 @@
   font-size: 24px;
   line-height: 29px;
   margin: 0;
+  margin-bottom: 54px;
+}
+
+@media screen and (max-width: 600px) {
+  .popup__editor {
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 75px;
+  }
 }
