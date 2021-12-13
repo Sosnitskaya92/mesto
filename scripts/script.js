@@ -1,4 +1,45 @@
- 
+/* добавление массива*/
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+]; 
+const elementTemplate = document.querySelector('.element__template').content;
+const elementsSection = document.querySelector('.elements');
+
+initialCards.forEach(function (element) {
+  const cardsElem = elementTemplate.cloneNode(true);
+  cardsElem.querySelector('.element__image').src = element.link;
+  cardsElem.querySelector('.element__image').alt = element.name;
+  cardsElem.querySelector('.element__title').textContent = element.name;
+
+  elementsSection.append(cardsElem);
+})
+
+
+
+
 const editBtn = document.querySelector('.profile__edit');
 const popup = document.querySelector('.popup__edit');
 const closeBtn = document.querySelector('.popup__close_edit');

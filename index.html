@@ -26,48 +26,8 @@
         <button class="profile__add" type="button" aria-label="Добавить"></button>
       </section>
       <section class="elements">
-        <article class="element">
-          <img class="element__image" src="images/image__karahasevsk.jpg" alt="Карачаевск">
-          <div class="element__group">
-            <h2 class="element__title">Карачаевск</h2>
-            <button class="element__heart" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="images/image__elbrus.jpg" alt="Гора Эльбрус">
-          <div class="element__group">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button class="element__heart" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="images/image__dombay.jpg" alt="Домбай">
-          <div class="element__group">
-            <h2 class="element__title">Домбай</h2>
-            <button class="element__heart" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="images/image__elbrus.jpg" alt="Гора Эльбрус">
-          <div class="element__group">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button class="element__heart" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="images/image__dombay.jpg" alt="Домбай">
-          <div class="element__group">
-            <h2 class="element__title">Домбай</h2>
-            <button class="element__heart" type="button"></button>
-          </div>
-        </article>
-        <article class="element">
-          <img class="element__image" src="images/image__karahasevsk.jpg" alt="Карачаевск">
-          <div class="element__group">
-            <h2 class="element__title">Карачаево-Черкессия</h2>
-            <button class="element__heart" type="button"></button>
-          </div>
-        </article>
+        
+                   <!--Встанет Template-->
       </section>
     </main>
     <footer class="footer">
@@ -96,6 +56,16 @@
         </div>
       </div>
   </div>
+  <template class="element__template">
+    <article class="element">
+      <button type="button" class="element__delete"></button>
+      <img class="element__image" src="" alt="">
+      <div class="element__group">
+        <h2 class="element__title"></h2>
+        <button class="element__heart" type="button"></button>
+      </div>
+    </article>
+  </template>
 <script src='scripts/script.js'></script>
 </body>
 </html>
