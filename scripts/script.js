@@ -45,6 +45,7 @@ const elementsSection = document.querySelector('.elements');
 const titleTemplate = document.querySelector('.element__title');
 const imageTemplate = document.querySelector('.element__image');
 
+
 function addCards (element) {
   elementsSection.prepend(element);
 }
@@ -60,6 +61,9 @@ function createElement(element) {
   cardsElem.querySelector('.element__image').src = element.link;
   cardsElem.querySelector('.element__image').alt = element.name;
   cardsElem.querySelector('.element__title').textContent = element.name;
+  elementsSection.addEventListener('click', addlike);
+  elementsSection.addEventListener('click', deleteElement);
+  
   return cardsElem;
 }
 
@@ -72,6 +76,19 @@ function formSubmitHandlerAdd (evt) {
   addCards(createElement(cardElement));
   closePopupAdd();
   formAdd.reset();
+}
+
+function addlike (evt) {
+  const eventTarget = evt.target;
+  if (evt.target.classList.contains('element__heart')) {
+    eventTarget.classList.toggle('element__heart_active');
+  }
+}
+
+function deleteElement (evt) {
+  if (evt.target.classList.contains('element__delete')) {
+    evt.target.closest('.element').remove();
+  }
 }
 
 function openPopup() {
@@ -99,8 +116,6 @@ function OpenPopupAdd() {
 function closePopupAdd() {
   popupAdd.classList.remove("popup_opened");
 }
-
-
 
 addBtn.addEventListener('click', OpenPopupAdd);
 editBtn.addEventListener('click', openPopup);

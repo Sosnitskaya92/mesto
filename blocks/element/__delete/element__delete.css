@@ -8,4 +8,5 @@
     top: 18px;
     background-image: url(../../../images/image__trash.svg);
     background-color: rgba(0, 0, 0, 0);
+    cursor: pointer;
 }
