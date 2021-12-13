@@ -9,4 +9,9 @@
     background-image: url(../../../images/image__trash.svg);
     background-color: rgba(0, 0, 0, 0);
     cursor: pointer;
+    transition: opacity .2s linear;
+}
+
+.element__delete:hover {
+  opacity: 0.6;
 }
