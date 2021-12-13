@@ -73,17 +73,28 @@
     <footer class="footer">
       <p class="footer__autor">&copy; 2020 Mesto Russia</p>
     </footer>
-    <div class="popup">
+    <div class="popup popup__edit">
       <div class="popup__container">
-        <h2 class="popup__editor">Редактировать профиль</h2>
-        <form class="popup__form" name="form_edit">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form class="popup__form popup__form_edit" name="form_edit">
           <input class="popup__input popup__input_type_name" type="text" name="first-name" placeholder="Имя" value="">
           <input class="popup__input popup__input_type_info" type="text" name="info-job" placeholder="О себе" value="">
           <button class="popup__save" type="submit" aria-label="Сохранить">Сохранить</button>
         </form>
-        <button class="popup__close" type="button" aria-label="Закрыть"></button>
+        <button class="popup__close popup__close_edit" type="button" aria-label="Закрыть"></button>
       </div>
     </div>
+    <div class="popup popup__add">
+        <div class="popup__container">
+          <h2 class="popup__title">Новое место</h2>
+          <form class="popup__form popup__form_add" name="form_edit">
+            <input class="popup__input popup__input_type_title" type="text" name="title" placeholder="Название" value="">
+            <input type="url" class="popup__input popup__input_type_link"  name="link" placeholder="Ссылка на картинку">
+            <button class="popup__save" type="submit" aria-label="Сохранить">Создать</button>
+          </form>
+          <button class="popup__close popup__close_add" type="button" aria-label="Закрыть"></button>
+        </div>
+      </div>
   </div>
 <script src='scripts/script.js'></script>
 </body>
