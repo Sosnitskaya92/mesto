@@ -1,4 +1,3 @@
-/* добавление массива*/
 const initialCards = [
   {
     name: 'Архыз',
@@ -25,7 +24,6 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ]; 
-
 const editBtn = document.querySelector('.profile__edit');
 const popup = document.querySelector('.popup__edit');
 const closeBtn = document.querySelector('.popup__close_edit');
@@ -57,8 +55,6 @@ function addCards (element) {
 function bypassElement (array) {
   array.forEach((element)=> addCards(createElement(element)));
 }
-
-bypassElement(initialCards);
 
 function createElement(element) {
   const cardsElem = elementTemplate.cloneNode(true);
@@ -127,7 +123,6 @@ function formSubmitHandler (evt) {
   evt.preventDefault(); 
   nameProfile.textContent = namePopup.value;
   jobProfile.textContent = jobPopup.value;
-    //вызвали функцию закрытия попап окна
   closePopup();
 }
 
@@ -139,6 +134,7 @@ function closePopupAdd() {
   popupAdd.classList.remove("popup_opened");
 }
 
+bypassElement(initialCards);
 addBtn.addEventListener('click', OpenPopupAdd);
 editBtn.addEventListener('click', openPopup);
 closeBtn.addEventListener('click', closePopup);
