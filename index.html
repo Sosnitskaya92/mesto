@@ -45,27 +45,34 @@
       </div>
     </div>
     <div class="popup popup__add">
-        <div class="popup__container">
-          <h2 class="popup__title">Новое место</h2>
-          <form class="popup__form popup__form_add" name="form_edit">
-            <input class="popup__input popup__input_type_title" type="text" name="title" placeholder="Название" value="">
-            <input type="url" class="popup__input popup__input_type_link"  name="link" placeholder="Ссылка на картинку" value="">
-            <button class="popup__save" type="submit" aria-label="Сохранить">Создать</button>
-          </form>
-          <button class="popup__close popup__close_add" type="button" aria-label="Закрыть"></button>
+      <div class="popup__container">
+        <h2 class="popup__title">Новое место</h2>
+        <form class="popup__form popup__form_add" name="form_edit">
+          <input class="popup__input popup__input_type_title" type="text" name="title" placeholder="Название" value="">
+          <input type="url" class="popup__input popup__input_type_link"  name="link" placeholder="Ссылка на картинку" value="">
+          <button class="popup__save" type="submit" aria-label="Сохранить">Создать</button>
+        </form>
+        <button class="popup__close popup__close_add" type="button" aria-label="Закрыть"></button>
+      </div>
+    </div>
+    <div class="popup popup__open">
+      <div class="popup__content">
+        <img class="popup__image" src="" alt="">
+        <p class="popup__subtitle"></p>
+        <button type="button" class="popup__close popup__close_img" aria-label="Закрыть"></button>
+      </div>
+    </div>
+    </div>
+    <template class="element__template">
+      <article class="element">
+        <button type="button" class="element__delete"></button>
+        <img class="element__image" src="" alt="">
+        <div class="element__group">
+          <h2 class="element__title"></h2>
+          <button class="element__heart" type="button"></button>
         </div>
-      </div>
-  </div>
-  <template class="element__template">
-    <article class="element">
-      <button type="button" class="element__delete"></button>
-      <img class="element__image" src="" alt="">
-      <div class="element__group">
-        <h2 class="element__title"></h2>
-        <button class="element__heart" type="button"></button>
-      </div>
-    </article>
-  </template>
+      </article>
+    </template>
 <script src='scripts/script.js'></script>
 </body>
 </html>
