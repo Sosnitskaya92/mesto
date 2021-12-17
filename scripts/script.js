@@ -1,5 +1,4 @@
 const editBtn = document.querySelector('.profile__edit');
-const popup = document.querySelector('.popup');
 const popupEdit = document.querySelector('.popup_edit');
 const closeBtn = document.querySelector('.popup__close_edit');
 const formElement = document.querySelector('.popup__form_edit');
@@ -63,7 +62,7 @@ function addlike (evt) {
 
 function deleteElement (evt) {
   const evenTargetDelete = evt.target
-  evt.target.closest('.element').remove();
+  evenTargetDelete.closest('.element').remove();
 }
 
 function formSubmitHandler (evt) {
@@ -88,10 +87,10 @@ function openPopupEdit() {
 }
 
 function openPopupImage(link, elem) {
-  openPopup(popupOpen);
   imagePopup.src = link;
   imagePopup.alt = elem;
   subtitlePopup.textContent = elem;
+  openPopup(popupOpen);
 }
 
 function closePopup(popup) {
