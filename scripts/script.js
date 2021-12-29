@@ -22,6 +22,7 @@ const imagePopup = document.querySelector('.popup__image');
 const subtitlePopup = document.querySelector('.popup__subtitle');
 const deleteBtn = document.querySelector('.element__delete');
 
+
 function addCard (element) {
   elementsSection.prepend(element);
 }
