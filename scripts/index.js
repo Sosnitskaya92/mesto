@@ -98,6 +98,8 @@ function openPopupImage(link, elem) {
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeEscape);
+  document.removeEventListener('mousedown', closeOverlay);
 }
 
 function closePopupAdd() {
