@@ -10,6 +10,7 @@
   background-color: rgba(0, 0, 0, 0);
   cursor: pointer;
   transition: opacity .2s linear;
+  z-index: 10;
 }
 
 .element__delete:hover {
