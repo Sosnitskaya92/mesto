@@ -1,14 +1,23 @@
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save',
+  inactiveButtonClass: 'popup__save_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+  };
+
 const showInputError = (elementForm, inputElement, errorMessage) => {
     const errorElement = elementForm.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.add('popup__input_type_error');
+    inputElement.classList.add(validationConfig.inputErrorClass);
     errorElement.textContent = errorMessage;
-    errorElement.classList.add('popup__input-error_active');
+    errorElement.classList.add(validationConfig.errorClass);
   };
   
   const hideInputError = (elementForm, inputElement) => {
     const errorElement = elementForm.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove('popup__input_type_error');
-    errorElement.classList.remove('popup__input-error_active');
+    inputElement.classList.remove(validationConfig.inputErrorClass);
+    errorElement.classList.remove(validationConfig.errorClass);
     errorElement.textContent = '';
   };
   
@@ -28,15 +37,17 @@ const showInputError = (elementForm, inputElement, errorMessage) => {
   
   const toogleButtonState = (inputList, buttonElement) => {
     if (hasInvalidInput(inputList)) {
-     buttonElement.classList.add('popup__save_inactive');
+     buttonElement.setAttribute("disabled", true);
+     buttonElement.classList.add(validationConfig.inactiveButtonClass);
    } else {
-     buttonElement.classList.remove('popup__save_inactive'); 
+     buttonElement.removeAttribute("disabled");
+     buttonElement.classList.remove(validationConfig.inactiveButtonClass); 
    }
   };
   
   const setEventListener = (elementForm) => {
-    const inputList =  Array.from(elementForm.querySelectorAll('.popup__input'));
-    const buttonElement = elementForm.querySelector('.popup__save');
+    const inputList =  Array.from(elementForm.querySelectorAll(validationConfig.inputSelector));
+    const buttonElement = elementForm.querySelector(validationConfig.submitButtonSelector);
     toogleButtonState(inputList, buttonElement);
     inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', function () {
@@ -46,8 +57,8 @@ const showInputError = (elementForm, inputElement, errorMessage) => {
     });
   };
   
-  const enableValidation = () => {
-    const formList = Array.from(document.querySelectorAll('.popup__form'));
+  const enableValidation = (validationConfig) => {
+    const formList = Array.from(document.querySelectorAll(validationConfig.formSelector));
     formList.forEach((elementForm) => {
       elementForm.addEventListener('submit', (evt) => {
       evt.preventDefault();
@@ -56,4 +67,4 @@ const showInputError = (elementForm, inputElement, errorMessage) => {
       });
     };
   
-     enableValidation();
+     enableValidation(validationConfig);
