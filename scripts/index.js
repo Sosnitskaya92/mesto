@@ -1,3 +1,8 @@
+export {openPopupImage};
+import {initialCards} from './initialCards.js'
+import {Card} from './Card.js';
+import {FormValidator} from './FormValidator.js'
+
 const editBtn = document.querySelector('.profile__edit');
 const popupEdit = document.querySelector('.popup_edit');
 const closeBtn = document.querySelector('.popup__close_edit');
@@ -12,38 +17,37 @@ const addBtn = document.querySelector('.profile__add');
 const closeAddBtn = document.querySelector('.popup__close_add');
 const titlePopup = document.querySelector('.popup__input_type_title');
 const linkPopup = document.querySelector('.popup__input_type_link');
-const elementTemplate = document.querySelector('.element__template').content;
 const elementsSection = document.querySelector('.elements');
-const titleTemplate = document.querySelector('.element__title');
-const imageTemplate = document.querySelector('.element__image');
 const popupOpen = document.querySelector('.popup_open');
 const closeImage = document.querySelector('.popup__close_img');
 const imagePopup = document.querySelector('.popup__image');
 const subtitlePopup = document.querySelector('.popup__subtitle');
-const deleteBtn = document.querySelector('.element__delete');
 const saveBtn = popupAdd.querySelector('.popup__save');
 
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save',
+  inactiveButtonClass: 'popup__save_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+};
+
+const EditFormValidator = new FormValidator(validationConfig, popupEdit);
+EditFormValidator.enableValidation();
+
+const AddFormValidator = new FormValidator(validationConfig, popupAdd);
+AddFormValidator.enableValidation();
+
+initialCards.forEach((item) => {
+  const card = new Card(item.name, item.link, '.element__template');
+  const CardEl = card.generateCard();
+  elementsSection.prepend(CardEl);
+});
+ 
 function addCard (element) {
   elementsSection.prepend(element);
 };
-
-/*function bypassElement (array) {
-  array.forEach((element)=> addCard(createElement(element)));
-};
-
-function createElement(element) {
-  const cardsElem = elementTemplate.cloneNode(true);
-  const imageTemplateClone = cardsElem.querySelector('.element__image');
-  const likeTemplateClone = cardsElem.querySelector('.element__heart');
-  const deleteCardBtn = cardsElem.querySelector('.element__delete');
-  imageTemplateClone.src = element.link;
-  imageTemplateClone.alt = element.name;
-  cardsElem.querySelector('.element__title').textContent = element.name;
-  likeTemplateClone.addEventListener('click', addlike);
-  deleteCardBtn.addEventListener('click', deleteElement);
-  imageTemplateClone.addEventListener('click', () => openPopupImage(element.link, element.name));
-  return cardsElem;
-};*/
 
 function formSubmitHandlerAdd (evt) {
   evt.preventDefault(); 
@@ -57,16 +61,6 @@ function formSubmitHandlerAdd (evt) {
   saveBtn.classList.add('popup__save_inactive');
   saveBtn.setAttribute("disabled", true);
 };
- 
-//function addlike (evt) {
-//  const eventTargetLike = evt.target;
-//  eventTargetLike.classList.toggle('element__heart_active');
-//};
-
-//function deleteElement (evt) {
-//  const evenTargetDelete = evt.target
-//  evenTargetDelete.closest('.element').remove();
-//};
 
 function submitProfileForm (evt) {
   evt.preventDefault(); 
@@ -114,42 +108,10 @@ function closeOverlay (evt) {
   };
 };
 
-//bypassElement(initialCards);
-
-editBtn.addEventListener('click', openPopupEdit);
 formElement.addEventListener('submit', submitProfileForm);
 formAdd.addEventListener('submit', formSubmitHandlerAdd);
-closeAddBtn.addEventListener('click', () => closePopup(popupAdd));
+editBtn.addEventListener('click', openPopupEdit);
 addBtn.addEventListener('click', () => openPopup(popupAdd));
-closeBtn.addEventListener('click', () => closePopup(popupEdit));
 closeImage.addEventListener('click', () => closePopup(popupOpen));
-
-
-export {openPopupImage};
-import {initialCards} from './initialCards.js'
-import {Card} from './Card.js';
-import {FormValidator} from './FormValidator.js'
-
-
-// исходные карточки из массива
-
-initialCards.forEach((item) => {
-  const card = new Card(item.name, item.link, '.element__template');
-  const CardEl = card.generateCard();
-  elementsSection.prepend(CardEl);
- });
-
- const validationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save',
-  inactiveButtonClass: 'popup__save_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
-  };
-  // валидация 
-  const EditFormValidator = new FormValidator(validationConfig, popupEdit);
-  EditFormValidator.enableValidation();
-
-  const AddFormValidator = new FormValidator(validationConfig, popupAdd);
-  AddFormValidator.enableValidation();
+closeAddBtn.addEventListener('click', () => closePopup(popupAdd));
+closeBtn.addEventListener('click', () => closePopup(popupEdit));

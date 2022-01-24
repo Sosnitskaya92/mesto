@@ -47,7 +47,7 @@ export class FormValidator {
     const buttonElement = this._elementFormSelector.querySelector(this._validationConfig.submitButtonSelector);
     this._toogleButtonState(inputList, buttonElement);
     inputList.forEach((inputElement) => {
-      inputElement.addEventListener('input', function () {
+      inputElement.addEventListener('input', () => {
         this._isValid(inputElement);
         this._toogleButtonState(inputList, buttonElement);
       });
