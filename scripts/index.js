@@ -5,8 +5,8 @@ import {FormValidator} from './FormValidator.js'
 
 const editBtn = document.querySelector('.profile__edit');
 const popupEdit = document.querySelector('.popup_edit');
-const closeBtn = document.querySelector('.popup__close_edit');
-const formElement = document.querySelector('.popup__form_edit');
+const closePopupProfileBtn = document.querySelector('.popup__close_edit');
+const formProfileEdit = document.querySelector('.popup__form_edit');
 const namePopup = document.querySelector('.popup__input_type_name');
 const jobPopup = document.querySelector('.popup__input_type_info');
 const nameProfile = document.querySelector('.profile__title');
@@ -18,11 +18,12 @@ const closeAddBtn = document.querySelector('.popup__close_add');
 const titlePopup = document.querySelector('.popup__input_type_title');
 const linkPopup = document.querySelector('.popup__input_type_link');
 const elementsSection = document.querySelector('.elements');
-const popupOpen = document.querySelector('.popup_open');
+const OpenImage = document.querySelector('.popup_open');
 const closeImage = document.querySelector('.popup__close_img');
 const imagePopup = document.querySelector('.popup__image');
 const subtitlePopup = document.querySelector('.popup__subtitle');
 const saveBtn = popupAdd.querySelector('.popup__save');
+
 
 const validationConfig = {
   formSelector: '.popup__form',
@@ -33,21 +34,23 @@ const validationConfig = {
   errorClass: 'popup__input-error_active'
 };
 
-const EditFormValidator = new FormValidator(validationConfig, popupEdit);
-EditFormValidator.enableValidation();
+const editFormValidator = new FormValidator(validationConfig, popupEdit);
+editFormValidator.enableValidation();
 
-const AddFormValidator = new FormValidator(validationConfig, popupAdd);
-AddFormValidator.enableValidation();
+const addFormValidator = new FormValidator(validationConfig, popupAdd);
+addFormValidator.enableValidation();
+
+function creatNewCard(name, link) {
+  return new Card(name, link, '.element__template').generateCard();
+}
+
+function addCreatNewCard(element) {
+  elementsSection.prepend(element)
+}
 
 initialCards.forEach((item) => {
-  const card = new Card(item.name, item.link, '.element__template');
-  const CardEl = card.generateCard();
-  elementsSection.prepend(CardEl);
+  addCreatNewCard(creatNewCard(item.name, item.link));
 });
- 
-function addCard (element) {
-  elementsSection.prepend(element);
-};
 
 function formSubmitHandlerAdd (evt) {
   evt.preventDefault(); 
@@ -55,11 +58,10 @@ function formSubmitHandlerAdd (evt) {
     name: titlePopup.value,
     link: linkPopup.value,
   };
-  addCard(new Card(cardElement.name, cardElement.link, '.element__template').generateCard())
+  addCreatNewCard(creatNewCard(cardElement.name, cardElement.link));
   closePopup(popupAdd)
   formAdd.reset();
-  saveBtn.classList.add('popup__save_inactive');
-  saveBtn.setAttribute("disabled", true);
+  addFormValidator.toogleButtonState();
 };
 
 function submitProfileForm (evt) {
@@ -85,7 +87,7 @@ function openPopupImage(link, elem) {
   imagePopup.src = link;
   imagePopup.alt = elem;
   subtitlePopup.textContent = elem;
-  openPopup(popupOpen);
+  openPopup(OpenImage);
 };
 
 function closePopup(popup) {
@@ -108,10 +110,10 @@ function closeOverlay (evt) {
   };
 };
 
-formElement.addEventListener('submit', submitProfileForm);
+formProfileEdit.addEventListener('submit', submitProfileForm);
 formAdd.addEventListener('submit', formSubmitHandlerAdd);
 editBtn.addEventListener('click', openPopupEdit);
 addBtn.addEventListener('click', () => openPopup(popupAdd));
-closeImage.addEventListener('click', () => closePopup(popupOpen));
+closeImage.addEventListener('click', () => closePopup(OpenImage));
 closeAddBtn.addEventListener('click', () => closePopup(popupAdd));
-closeBtn.addEventListener('click', () => closePopup(popupEdit));
+closePopupProfileBtn.addEventListener('click', () => closePopup(popupEdit));
