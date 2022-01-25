@@ -1,4 +1,3 @@
-export {openPopupImage};
 import {initialCards} from './initialCards.js'
 import {Card} from './Card.js';
 import {FormValidator} from './FormValidator.js'
@@ -18,12 +17,10 @@ const closeAddBtn = document.querySelector('.popup__close_add');
 const titlePopup = document.querySelector('.popup__input_type_title');
 const linkPopup = document.querySelector('.popup__input_type_link');
 const elementsSection = document.querySelector('.elements');
-const OpenImage = document.querySelector('.popup_open');
+const openImage = document.querySelector('.popup_open');
 const closeImage = document.querySelector('.popup__close_img');
 const imagePopup = document.querySelector('.popup__image');
 const subtitlePopup = document.querySelector('.popup__subtitle');
-const saveBtn = popupAdd.querySelector('.popup__save');
-
 
 const validationConfig = {
   formSelector: '.popup__form',
@@ -41,7 +38,7 @@ const addFormValidator = new FormValidator(validationConfig, popupAdd);
 addFormValidator.enableValidation();
 
 function creatNewCard(name, link) {
-  return new Card(name, link, '.element__template').generateCard();
+  return new Card(name, link, '.element__template', openPopupImage).generateCard();
 }
 
 function addCreatNewCard(element) {
@@ -83,11 +80,11 @@ function openPopupEdit() {
   jobPopup.value = jobProfile.textContent;
 };
 
-function openPopupImage(link, elem) {
+function openPopupImage(link, name) {
   imagePopup.src = link;
-  imagePopup.alt = elem;
-  subtitlePopup.textContent = elem;
-  openPopup(OpenImage);
+  imagePopup.alt = name;
+  subtitlePopup.textContent = name;
+  openPopup(openImage);
 };
 
 function closePopup(popup) {
@@ -114,6 +111,6 @@ formProfileEdit.addEventListener('submit', submitProfileForm);
 formAdd.addEventListener('submit', formSubmitHandlerAdd);
 editBtn.addEventListener('click', openPopupEdit);
 addBtn.addEventListener('click', () => openPopup(popupAdd));
-closeImage.addEventListener('click', () => closePopup(OpenImage));
+closeImage.addEventListener('click', () => closePopup(openImage));
 closeAddBtn.addEventListener('click', () => closePopup(popupAdd));
 closePopupProfileBtn.addEventListener('click', () => closePopup(popupEdit));
