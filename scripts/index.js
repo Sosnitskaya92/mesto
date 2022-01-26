@@ -17,9 +17,9 @@ const closeAddBtn = document.querySelector('.popup__close_add');
 const titlePopup = document.querySelector('.popup__input_type_title');
 const linkPopup = document.querySelector('.popup__input_type_link');
 const elementsSection = document.querySelector('.elements');
-const openImage = document.querySelector('.popup_open');
+const imagePopup = document.querySelector('.popup_open');
 const closeImage = document.querySelector('.popup__close_img');
-const imagePopup = document.querySelector('.popup__image');
+const imagePopupPicture = document.querySelector('.popup__image');
 const subtitlePopup = document.querySelector('.popup__subtitle');
 
 const validationConfig = {
@@ -81,10 +81,10 @@ function openPopupEdit() {
 };
 
 function openPopupImage(link, name) {
-  imagePopup.src = link;
-  imagePopup.alt = name;
+  imagePopupPicture.src = link;
+  imagePopupPicture.alt = name;
   subtitlePopup.textContent = name;
-  openPopup(openImage);
+  openPopup(imagePopup);
 };
 
 function closePopup(popup) {
@@ -111,6 +111,6 @@ formProfileEdit.addEventListener('submit', submitProfileForm);
 formAdd.addEventListener('submit', formSubmitHandlerAdd);
 editBtn.addEventListener('click', openPopupEdit);
 addBtn.addEventListener('click', () => openPopup(popupAdd));
-closeImage.addEventListener('click', () => closePopup(openImage));
+closeImage.addEventListener('click', () => closePopup(imagePopup));
 closeAddBtn.addEventListener('click', () => closePopup(popupAdd));
 closePopupProfileBtn.addEventListener('click', () => closePopup(popupEdit));
