@@ -3,7 +3,7 @@ export default class Card {
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
-    this._openImagePopup = handleCardClick;
+    this._handleCardClick = handleCardClick;
   };
 
   _getTemplate() {
@@ -17,8 +17,8 @@ export default class Card {
   }
 
   _addlike(evt) {
-      const eventTargetLike = evt.target;
-      eventTargetLike.classList.toggle('element__heart_active');
+    const eventTargetLike = evt.target;
+    eventTargetLike.classList.toggle('element__heart_active');
   }
 
   _deleteElement() {
@@ -29,7 +29,7 @@ export default class Card {
   _setEventListners() {
     this._element.querySelector(".element__heart").addEventListener('click', (evt) => this._addlike(evt));
     this._element.querySelector(".element__delete").addEventListener('click', () => this._deleteElement());
-    this._element.querySelector(".element__image").addEventListener('click', () => this._openImagePopup(this._link, this._name));
+    this._element.querySelector(".element__image").addEventListener('click', () => this._handleCardClick(this._link, this._name));
   }
   
   generateCard() {
