@@ -5,9 +5,23 @@ import FormValidator from '../components/FormValidator.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
-import {initialCards, validationConfig, editBtn, popupEdit, namePopup, jobPopup, popupAdd, addBtn, elementsSection} from '../utils/constants.js'
+import {initialCards,
+        validationConfig,
+        editBtn, popupEdit,
+        namePopup,
+        jobPopup,
+        popupAdd,
+        addBtn, 
+        elementsSection,
+        imagePopupSelector,
+        cardNewSelector,
+        sectionSelector,
+        nameProfileSelector,
+        jobProfileSelector,
+        editFormSelector,
+        addFormSelector} from '../utils/constants.js'
 
-const userInfo = new UserInfo('.profile__title', '.profile__text');
+const userInfo = new UserInfo(nameProfileSelector, jobProfileSelector);
 //валидация форм
 const editFormValidator = new FormValidator(validationConfig, popupEdit);
 editFormValidator.enableValidation();
@@ -15,7 +29,7 @@ editFormValidator.enableValidation();
 const addFormValidator = new FormValidator(validationConfig, popupAdd);
 addFormValidator.enableValidation();
 
-const imageWithPopup = new PopupWithImage('.popup_open');
+const imageWithPopup = new PopupWithImage(imagePopupSelector);
 imageWithPopup.setEventListeners();
 
 // открыть картинку
@@ -23,13 +37,19 @@ function handleCardClick(link, name) {
   imageWithPopup.openPopupImage(link, name);
 }
 
+// создать экземпляр карточки
+function creatNewCard(item) {
+  const newCard = new Card(item, cardNewSelector, handleCardClick);
+  return newCard.generateCard()
+}
+
 // создать и вставить исходный массив
 const defaultCards = new Section(
   {items: initialCards, 
    renderer: (item) => {
-    const newCard = new Card(item, '.element__template', handleCardClick).generateCard();
-    defaultCards.addItem(newCard);}
-   },'.elements'
+     defaultCards.addItem(creatNewCard(item));}
+   },
+   sectionSelector
 );
 
 defaultCards.renderItems();
@@ -44,25 +64,26 @@ function setUserInfo(data) {
   userInfo.setUserInfo(data);
 }
 
-const popupEditForm = new PopupWithForm('.popup_edit', (data) => {
+const popupEditForm = new PopupWithForm(editFormSelector, (data) => {
   setUserInfo(data)
 });
 
 editBtn.addEventListener('click', () => {
   setInputValue()
   popupEditForm.openPopup();
+  editFormValidator.resetErrorValidation();
 })
 
 popupEditForm.setEventListeners();
 
-const popupAddForm = new PopupWithForm('.popup_add', (data) => {
-    const cardElement = new Card(data, '.element__template', handleCardClick).generateCard();
-    elementsSection.prepend(cardElement);
+const popupAddForm = new PopupWithForm(addFormSelector, (data) => {
+    elementsSection.prepend(creatNewCard(data));
 });
 
 addBtn.addEventListener('click', () =>{
   popupAddForm.openPopup();
   addFormValidator.toogleButtonState();
+  addFormValidator.resetErrorValidation();
 });
 
 popupAddForm.setEventListeners();

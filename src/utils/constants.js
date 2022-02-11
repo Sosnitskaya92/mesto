@@ -44,3 +44,11 @@ export const popupEdit = document.querySelector('.popup_edit');
 export const popupAdd = document.querySelector('.popup_add');
 
 export const elementsSection = document.querySelector('.elements');
+
+export const imagePopupSelector = '.popup_open';
+export const cardNewSelector = '.element__template';
+export const sectionSelector = '.elements';
+export const nameProfileSelector = '.profile__title';
+export const jobProfileSelector = '.profile__text';
+export const editFormSelector = '.popup_edit';
+export const addFormSelector = '.popup_add';
