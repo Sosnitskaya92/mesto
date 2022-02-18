@@ -20,4 +20,4 @@
 
 Файловая структура CSS создана по методологии БЭМ.
 
-* [Ссылка на проект](https://sosnitskaya92.github.io/mesto/index.html)
+* [Ссылка на проект](https://Sosnitskaya92.github.io/mesto)
