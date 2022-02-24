@@ -6,6 +6,7 @@
   height: 19px;
   transition: opacity .2s linear;
   cursor: pointer;
+  margin-bottom: 3px;
 }
 
 .element__heart:hover {
