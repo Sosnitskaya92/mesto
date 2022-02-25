@@ -6,23 +6,27 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
-import {initialCards,
+import {elementDelete,
         validationConfig,
-        editBtn, popupEdit,
+        popupEdit,
         namePopup,
         jobPopup,
         popupAdd,
-        addBtn, 
+        editBtn,
+        addBtn,
+        editBtnAvatar,
         elementsSection,
         imagePopupSelector,
         cardNewSelector,
         sectionSelector,
         nameProfileSelector,
         jobProfileSelector,
+        avatarProfileSelector,
         editFormSelector,
-        addFormSelector} from '../utils/constants.js'
+        addFormSelector,
+        editAvatarSelector} from '../utils/constants.js'
 
-const userInfo = new UserInfo(nameProfileSelector, jobProfileSelector);
+const userInfo = new UserInfo(nameProfileSelector, jobProfileSelector, avatarProfileSelector);
 //валидация форм
 const editFormValidator = new FormValidator(validationConfig, popupEdit);
 editFormValidator.enableValidation();
@@ -117,7 +121,8 @@ const cardApi = new Api({
     'Content-Type': 'application/json'
   }
 });
-// рендtр карточек с сервера 
+
+// рендер карточек с сервера 
 cardApi.getInitialCards()
 .then(data => {
  const defaultCards = new Section(
@@ -130,3 +135,37 @@ cardApi.getInitialCards()
     
 });
 
+//все для обновления аватар
+const avatarApi = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort36/users/me/avatar',
+  headers: {
+    authorization: '9bb3333e-8dc8-44bf-a219-29f503167caa',
+    'Content-Type': 'application/json'
+  }
+});
+
+userInfoApi.getUserInfo()
+  .then(data => {
+    setAvatar(data);
+  })
+
+const popupEditAvatar = new PopupWithForm(editAvatarSelector, (data) => {editAvatar(data)});
+popupEditAvatar.setEventListeners()
+
+function setAvatar(data) {
+  userInfo.setAvatar(data);
+}
+
+function editAvatar(data) {
+  avatarApi.editAvatar(data)
+  .then((data) => {
+    setAvatar(data)
+  })
+  .finally(() => {
+    popupEditAvatar.closePopup()
+  })
+};
+
+editBtnAvatar.addEventListener('click', () => {
+  popupEditAvatar.openPopup();
+})
