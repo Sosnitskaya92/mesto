@@ -56,4 +56,4 @@ export const editFormSelector = '.popup_edit';
 export const addFormSelector = '.popup_add';
 export const editAvatarSelector = '.popup_edit-avatar';
 
-export const elementDelete = document.querySelector('.element__delete')
+export const elementDelete = '.popup_delete';

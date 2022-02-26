@@ -44,3 +44,4 @@
 @import url(../blocks/popup/__delete/popup__delete.css);
 @import url(../blocks/popup/__question/popup__question.css);
 @import url(../blocks/profile/__avatar/_edit/profile__avatar_edit.css);
+@import url(../blocks/element/__delete/_inactive/element__delete_inactive.css);

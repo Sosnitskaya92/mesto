@@ -4,6 +4,7 @@ import Section from '../components/Section.js';
 import FormValidator from '../components/FormValidator.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithDelete from '../components/PopupWithDelete.js'
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 import {elementDelete,
@@ -44,7 +45,7 @@ function handleCardClick(link, name) {
 
 // создать экземпляр карточки
 function creatNewCard(item) {
-  const newCard = new Card(item, cardNewSelector, handleCardClick);
+  const newCard = new Card(item, userId, cardNewSelector, handleCardClick, () => {handleLikeClick(item)}, () => {handleDeleteCard(item)});
   return newCard.generateCard()
 }
 
@@ -109,9 +110,12 @@ const userInfoApi = new Api({
   }
 });
 // данные загружены с сервера 
+let userId
+
 userInfoApi.getUserInfo()
 .then((data) => {
- setUserInfo(data);
+  userId = data._id;
+  setUserInfo(data);
 });
 
 const cardApi = new Api({
@@ -135,7 +139,7 @@ cardApi.getInitialCards()
     
 });
 
-//все для обновления аватар
+//обновление аватар
 const avatarApi = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort36/users/me/avatar',
   headers: {
@@ -169,3 +173,41 @@ function editAvatar(data) {
 editBtnAvatar.addEventListener('click', () => {
   popupEditAvatar.openPopup();
 })
+
+//карточки и лайк
+
+const likeApi = new Api({
+  url: 'https://mesto.nomoreparties.co/v1/cohort36/cards/likes',
+  headers: {
+      authorization: "9bb3333e-8dc8-44bf-a219-29f503167caa",
+      "Content-Type": "application/json"
+  }
+})
+
+const deleteWithPopup = new PopupWithDelete(elementDelete);
+
+deleteWithPopup.setEventListeners();
+
+function handleDeleteCard(card) {    
+  deleteWithPopup.openPopup();
+  deleteWithPopup.handleSubmit(() => {
+      cardApi.deleteCard(card.id)
+      .then((card) =>{
+        card.deleteElement(card);
+      })
+      .then(() => {
+      deleteWithPopup.closePopup()
+      }) 
+  })     
+}
+
+function handleLikeClick(card){
+  if(card.isLiked()) {
+    likeApi.deleteCardLike(card.id)
+    .then(dataCard => {card.setLikes(dataCard.likes)})
+  } else {
+    likeApi.putCardLike(card.id)
+    .then(dataCard => {card.setLikes(dataCard.likes)})
+  }
+  console.log(card)
+}
