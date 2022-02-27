@@ -24,19 +24,14 @@ export default class Card {
     return cardElement;
   }
 
-  _addlike(evt) {
-    const eventTargetLike = evt.target;
-    eventTargetLike.classList.toggle('element__heart_active');
-  }
-
   deleteElement() {
     this._element.remove();
     this._element = null;
   };
 
   _setEventListners() {
-    this._element.querySelector(".element__heart").addEventListener('click', () =>  this._handleLikeClick());
-    this._element.querySelector(".element__delete").addEventListener('click', () => this._handleDeleteCard());
+    this._element.querySelector(".element__heart").addEventListener('click', () =>  this._handleLikeClick(this));
+    this._element.querySelector(".element__delete").addEventListener('click', () => this._handleDeleteCard(this));
     this._element.querySelector(".element__image").addEventListener('click', () => this._handleCardClick(this._link, this._name));
   }
   
@@ -51,6 +46,8 @@ export default class Card {
     elementImage.src = this._link;
     elementImage.alt = this._name;
 
+    this._element.querySelector('.element__heart-number').textContent = this._likes.length;
+
     return this._element;
   }
 
@@ -62,7 +59,7 @@ export default class Card {
 
   handleDeleteButton() {
     if (this.checkCardOwner() === true) {
-      this._element.querySelector('.element__delete').classList.remove('element__delete_inactive');  
+      this._element.querySelector('.element__delete').classList.remove('element__delete_inactive');
     } else {
       this._element.querySelector('.element__delete').classList.add('element__delete_inactive');
     }
@@ -80,8 +77,8 @@ export default class Card {
   }
 
   _updateLikeNumber() {
-      this._element.querySelector('.element__heart-number').textContent = this._likes.length;
-      this._element.querySelector('.element__heart').classList.toggle('element__heart_active')
+    this._element.querySelector('.element__heart-number').textContent = this._likes.length;
+    this._element.querySelector('.element__heart').classList.toggle('element__heart_active')
   }
   
   setLikes(dataCard) {

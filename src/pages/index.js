@@ -10,9 +10,10 @@ import Api from '../components/Api.js';
 import {elementDelete,
         validationConfig,
         popupEdit,
+        popupAdd,
+        popupAvatar,
         namePopup,
         jobPopup,
-        popupAdd,
         editBtn,
         addBtn,
         editBtnAvatar,
@@ -25,9 +26,12 @@ import {elementDelete,
         avatarProfileSelector,
         editFormSelector,
         addFormSelector,
-        editAvatarSelector} from '../utils/constants.js'
+        editAvatarSelector} from '../utils/constants.js';
+
+let userId        
 
 const userInfo = new UserInfo(nameProfileSelector, jobProfileSelector, avatarProfileSelector);
+
 //валидация форм
 const editFormValidator = new FormValidator(validationConfig, popupEdit);
 editFormValidator.enableValidation();
@@ -35,23 +39,142 @@ editFormValidator.enableValidation();
 const addFormValidator = new FormValidator(validationConfig, popupAdd);
 addFormValidator.enableValidation();
 
+const avatarFormValidator = new FormValidator(validationConfig, popupAvatar);
+avatarFormValidator.enableValidation();
+
 const imageWithPopup = new PopupWithImage(imagePopupSelector);
 imageWithPopup.setEventListeners();
+
+const popupEditForm = new PopupWithForm(editFormSelector, editUserInfo);
+popupEditForm.setEventListeners();
+
+const popupAddForm = new PopupWithForm(addFormSelector, saveNewCard);
+popupAddForm.setEventListeners();
+
+const popupEditAvatar = new PopupWithForm(editAvatarSelector, (data) => {editAvatar(data)});
+popupEditAvatar.setEventListeners()
+
+const deleteWithPopup = new PopupWithDelete(elementDelete);
+deleteWithPopup.setEventListeners();
+
+const userInfoApi = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort36/users/me',
+  headers: {
+    authorization: '9bb3333e-8dc8-44bf-a219-29f503167caa',
+    'Content-Type': 'application/json'
+  }
+});
+
+const cardApi = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort36/cards',
+  headers: {
+    authorization: '9bb3333e-8dc8-44bf-a219-29f503167caa',
+    'Content-Type': 'application/json'
+  }
+});
+
+const avatarApi = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort36/users/me/avatar',
+  headers: {
+    authorization: '9bb3333e-8dc8-44bf-a219-29f503167caa',
+    'Content-Type': 'application/json'
+  }
+});
+
+const likeApi = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort36/cards',
+  headers: {
+    authorization: "9bb3333e-8dc8-44bf-a219-29f503167caa",
+    'Content-Type': 'application/json'
+  }
+})
+
+// С сервера данные
+userInfoApi.getUserInfo()
+  .then((data) => {
+    userId = data._id;
+    setUserInfo(data);
+  })
+  .catch((err) => {
+    console.log(err); 
+  });
+
+// рендер карточек с сервера 
+cardApi.getInitialCards()
+  .then(data => {
+    const defaultCards = new Section(
+      {items: data, 
+        renderer: (item) => {
+          defaultCards.addItem(creatNewCard(item));}
+      }, sectionSelector
+    );
+      defaultCards.renderItems();   
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+//обновление аватар
+userInfoApi.getUserInfo()
+  .then(data => {
+    setAvatar(data);
+  })
+  .catch((err) => {
+    console.log(err);
+  }); 
+
+function setAvatar(data) {
+  userInfo.setAvatar(data);
+};
+  
+function editAvatar(data) {
+  avatarApi.editAvatar(data)
+  .then((data) => {
+    setAvatar(data)
+  })
+  .finally(() => {
+    popupEditAvatar.closePopup()
+  })
+};
 
 // открыть картинку
 function handleCardClick(link, name) {
   imageWithPopup.openPopupImage(link, name);
-}
+};
+
+function handleDeleteCard(card) {    
+  deleteWithPopup.openPopup();
+  deleteWithPopup.handleSubmit(() => {
+      cardApi.deleteCard(card.id)
+      .then(() =>{
+        card.deleteElement();
+      })
+      .then(() => {
+      deleteWithPopup.closePopup()
+      }) 
+  })     
+};
+
+function handleLikeClick(card) {
+  if(card.isLiked()) {
+    likeApi.deleteCardLike(card.id)
+    .then(dataCard => {card.setLikes(dataCard.likes)})
+  } else {
+    likeApi.putCardLike(card.id)
+    .then(dataCard => {card.setLikes(dataCard.likes)})
+  }
+  console.log(card)
+};
 
 // создать экземпляр карточки
 function creatNewCard(item) {
-  const newCard = new Card(item, userId, cardNewSelector, handleCardClick, () => {handleLikeClick(item)}, () => {handleDeleteCard(item)});
+  const newCard = new Card(item, userId, cardNewSelector, handleCardClick, handleLikeClick, handleDeleteCard);
   return newCard.generateCard()
-}
+};
 
 function setUserInfo (data){
   userInfo.setUserInfo(data);
-}
+};
 
 function editUserInfo(data) {
   userInfoApi.editUserInfo(data)
@@ -65,22 +188,12 @@ function editUserInfo(data) {
 
 function updateFormValue () {
   userInfo.getUserInfo();
-}
+};
 
 function setInputValue () {
   namePopup.value = userInfo.getUserInfo().name;
   jobPopup.value = userInfo.getUserInfo().job;
-}
-
-const popupEditForm = new PopupWithForm(editFormSelector, editUserInfo);
-
-editBtn.addEventListener('click', () => {
-  setInputValue(updateFormValue());
-  popupEditForm.openPopup();
-  editFormValidator.resetErrorValidation();
-})
-
-popupEditForm.setEventListeners();
+};
 
 function saveNewCard(data) {
   cardApi.addCard(data)
@@ -92,122 +205,22 @@ function saveNewCard(data) {
     })
   };
 
- const popupAddForm = new PopupWithForm(addFormSelector, saveNewCard);
+editBtn.addEventListener('click', () => {
+  popupEditForm.backTextButtonSave();
+  setInputValue(updateFormValue());
+  popupEditForm.openPopup();
+  editFormValidator.resetErrorValidation();
+});
 
 addBtn.addEventListener('click', () =>{
+  popupAddForm.backTextButtonCreat();
   popupAddForm.openPopup();
   addFormValidator.toogleButtonState();
   addFormValidator.resetErrorValidation();
 });
 
-popupAddForm.setEventListeners();
-
-const userInfoApi = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort36/users/me',
-  headers: {
-    authorization: '9bb3333e-8dc8-44bf-a219-29f503167caa',
-    'Content-Type': 'application/json'
-  }
-});
-// данные загружены с сервера 
-let userId
-
-userInfoApi.getUserInfo()
-.then((data) => {
-  userId = data._id;
-  setUserInfo(data);
-});
-
-const cardApi = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort36/cards',
-  headers: {
-    authorization: '9bb3333e-8dc8-44bf-a219-29f503167caa',
-    'Content-Type': 'application/json'
-  }
-});
-
-// рендер карточек с сервера 
-cardApi.getInitialCards()
-.then(data => {
- const defaultCards = new Section(
-    {items: data, 
-     renderer: (item) => {
-        defaultCards.addItem(creatNewCard(item));}
-    }, sectionSelector
-);
- defaultCards.renderItems();
-    
-});
-
-//обновление аватар
-const avatarApi = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort36/users/me/avatar',
-  headers: {
-    authorization: '9bb3333e-8dc8-44bf-a219-29f503167caa',
-    'Content-Type': 'application/json'
-  }
-});
-
-userInfoApi.getUserInfo()
-  .then(data => {
-    setAvatar(data);
-  })
-
-const popupEditAvatar = new PopupWithForm(editAvatarSelector, (data) => {editAvatar(data)});
-popupEditAvatar.setEventListeners()
-
-function setAvatar(data) {
-  userInfo.setAvatar(data);
-}
-
-function editAvatar(data) {
-  avatarApi.editAvatar(data)
-  .then((data) => {
-    setAvatar(data)
-  })
-  .finally(() => {
-    popupEditAvatar.closePopup()
-  })
-};
-
 editBtnAvatar.addEventListener('click', () => {
+  popupEditAvatar.backTextButtonSave();
   popupEditAvatar.openPopup();
-})
-
-//карточки и лайк
-
-const likeApi = new Api({
-  url: 'https://mesto.nomoreparties.co/v1/cohort36/cards/likes',
-  headers: {
-      authorization: "9bb3333e-8dc8-44bf-a219-29f503167caa",
-      "Content-Type": "application/json"
-  }
-})
-
-const deleteWithPopup = new PopupWithDelete(elementDelete);
-
-deleteWithPopup.setEventListeners();
-
-function handleDeleteCard(card) {    
-  deleteWithPopup.openPopup();
-  deleteWithPopup.handleSubmit(() => {
-      cardApi.deleteCard(card.id)
-      .then((card) =>{
-        card.deleteElement(card);
-      })
-      .then(() => {
-      deleteWithPopup.closePopup()
-      }) 
-  })     
-}
-
-function handleLikeClick(card){
-  if(card.isLiked()) {
-    likeApi.deleteCardLike(card.id)
-    .then(dataCard => {card.setLikes(dataCard.likes)})
-  } else {
-    likeApi.putCardLike(card.id)
-    .then(dataCard => {card.setLikes(dataCard.likes)})
-  }
-  console.log(card)
-}
+  avatarFormValidator.resetErrorValidation();
+});
