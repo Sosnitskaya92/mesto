@@ -132,6 +132,9 @@ function editAvatar(data) {
   .then((data) => {
     setAvatar(data)
   })
+  .catch((err) => {
+    console.log(err); 
+  })
   .finally(() => {
     popupEditAvatar.closePopup()
   })
@@ -151,6 +154,9 @@ function handleDeleteCard(card) {
       })
       .then(() => {
       deleteWithPopup.closePopup()
+      })
+      .catch((err) => {
+        console.log(err); 
       }) 
   })     
 };
@@ -159,9 +165,15 @@ function handleLikeClick(card) {
   if(card.isLiked()) {
     likeApi.deleteCardLike(card.id)
     .then(dataCard => {card.setLikes(dataCard.likes)})
+    .catch((err) => {
+      console.log(err); 
+    });
   } else {
     likeApi.putCardLike(card.id)
     .then(dataCard => {card.setLikes(dataCard.likes)})
+    .catch((err) => {
+      console.log(err); 
+    });
   }
   console.log(card)
 };
@@ -181,6 +193,9 @@ function editUserInfo(data) {
   .then(data => {
     setUserInfo(data);
   })
+  .catch((err) => {
+    console.log(err); 
+  })
   .finally(() => {
     popupEditForm.closePopup();
   })
@@ -199,6 +214,9 @@ function saveNewCard(data) {
   cardApi.addCard(data)
     .then(data => {
       elementsSection.prepend(creatNewCard(data))
+    })
+    .catch((err) => {
+      console.log(err); 
     })
     .finally(() => {
       popupAddForm.closePopup()

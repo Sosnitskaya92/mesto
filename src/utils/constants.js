@@ -9,7 +9,7 @@ export const validationConfig = {
 
 export const editBtn = document.querySelector('.profile__edit');
 export const addBtn = document.querySelector('.profile__add');
-export const editBtnAvatar = document.querySelector('.profile__avatar_edit');
+export const editBtnAvatar = document.querySelector('.profile__avatar-edit');
 
 export const namePopup = document.querySelector('.popup__input_type_name');
 export const jobPopup = document.querySelector('.popup__input_type_info');
