@@ -99,7 +99,6 @@ function editAvatar(data) {
     })
 };
 
-// открыть картинку
 function handleCardClick(link, name) {
   imageWithPopup.openPopupImage(link, name);
 };
