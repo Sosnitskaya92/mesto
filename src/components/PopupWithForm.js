@@ -5,13 +5,14 @@ export default class PopupWithForm extends Popup {
     super(popupSelector);
     this._submitFormFunction = submitFormFunction;
     this._form = this._popup.querySelector('.popup__form');
+    this._inputList = this._form.querySelectorAll('.popup__input');
+    // this._submitButton =  this._popup.querySelector('.popup__save');
+    
   }
 
   _getInputValues() {
-    const inputList = this._form.querySelectorAll('.popup__input');
-    
     const formValues = {};
-      inputList.forEach(input => formValues[input.name] = input.value);
+    this._inputList.forEach(input => formValues[input.name] = input.value);
     
     return formValues;
   }
@@ -21,22 +22,22 @@ export default class PopupWithForm extends Popup {
 
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this._popup.querySelector('.popup__save').textContent = "Сохранение..."
       this._submitFormFunction(this._getInputValues());
-      this.closePopup();
     });
   }
 
-  backTextButtonSave() {
-    this._popup.querySelector('.popup__save').textContent = "Сохранить"
-  }
-
-  backTextButtonCreat() {
-    this._popup.querySelector('.popup__save').textContent = "Создать"
-  }
-  
   closePopup() {
     this._form.reset();
     super.closePopup();
+  }
+
+  renderLoading(isLoading, buttonText) {
+    this._submitButton =  this._popup.querySelector('.popup__save');
+    if (isLoading) {
+      this._submitButton.textContent = `Сохранение...`;
+    }
+    else {
+      this._submitButton.textContent = buttonText;
+    }
   }
 }

@@ -18,8 +18,6 @@ export const popupEdit = document.querySelector('.popup_edit');
 export const popupAdd = document.querySelector('.popup_add');
 export const popupAvatar = document.querySelector('.popup_edit-avatar');
 
-export const elementsSection = document.querySelector('.elements');
-
 export const imagePopupSelector = '.popup_open';
 export const cardNewSelector = '.element__template';
 export const sectionSelector = '.elements';
